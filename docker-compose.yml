@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  golang:
+    tty: true
+    build: "./docker/go"
+    volumes:
+      - ./app:/go/app:z
+    ports:
+      - "9000"
+    restart: always
+    command: bash -c "realize start --server"
+  nginx:
+    build: ./docker/nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - "golang"
+    restart: always
