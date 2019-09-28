@@ -5,7 +5,6 @@ import (
     "net/http"
     "log"
     "html/template"
-
     
     "github.com/gorilla/mux"
 )
