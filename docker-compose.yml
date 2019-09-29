@@ -5,9 +5,9 @@ services:
     tty: true
     build: "./docker/go"
     volumes:
-      - ./app:/go/app/api:z
+      - ./app/api:/go/app:z
     ports:
-      - "80"
+      - "9000"
     restart: always
     command: bash -c "realize start --server"
   web:
@@ -27,3 +27,6 @@ services:
     ports:
         - 80:80
     restart: always
+    depends_on:
+      - "api"
+      - "web"

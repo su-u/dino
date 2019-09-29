@@ -24,8 +24,9 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 
     r := mux.NewRouter()
-    r.HandleFunc("/", rootHandler)
+    // r.HandleFunc("/", rootHandler)
+    r.HandleFunc("/api", rootHandler)
 
     http.Handle("/", r)
-    http.ListenAndServe(":80", nil)
+    http.ListenAndServe(":9000", nil)
 }
