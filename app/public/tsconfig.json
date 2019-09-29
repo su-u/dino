@@ -1,0 +1,13 @@
+{
+    "include": [
+        "./src/*"
+    ],
+    "compilerOptions": {
+        "sourceMap": true,
+        "lib": [
+            "dom",
+            "es2015"
+        ],
+        "jsx": "react"
+    }
+}
