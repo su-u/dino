@@ -10,24 +10,38 @@
     "react": "16.8.6",
     "react-dom": "^16.3.0",
     "react-moment": "^0.9.2",
-    "react-redux": "^5.0.5",
+    "react-redux": "^7.1.1",
     "react-scripts": "3.0.0",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "styled-components": "^4.3.1",
-    "webpack": "4.8.3"
+    "webpack": "^4.41.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
     "@types/react": "^16.8.20",
     "@types/react-dom": "^16.8.4",
-    "ts-loader": "^6.0.3",
-    "typescript": "^3.5.2",
-    "webpack-cli": "^3.3.4",
+    "@types/react-redux": "^7.1.4",
+    "babel-loader": "^8.0.6",
+    "prettier": "^1.18.2",
+    "ts-loader": "^6.2.0",
+    "tslint": "^5.20.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-config-standard": "^8.0.1",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.6.3",
+    "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.7.2"
   },
   "scripts": {
     "build": "webpack",
-    "watch": "webpack -w"
+    "watch": "webpack -w",
+    "check": "yarn run tsc --noEmit && yarn run tslint",
+    "tslint-fix": "tslint --fix --project tsconfig.json",
+    "tslint:prettier-check": "tslint-config-prettier-check ./tslint.json",
+    "tslint": "tslint --fix --force --format stylish --project ./tsconfig.json ./{src,__tests__}/**/*.{ts,tsx}",
+    "prettier": "prettier --write ./{src,__tests__}/**/*.{ts,tsx}"
   },
   "browserslist": [
     ">0.2%",

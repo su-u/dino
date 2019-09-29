@@ -1,6 +1,5 @@
 module.exports = {
-    mode: "development",
-    entry: "./src/index.tsx",
+    mode: process.env.NODE_ENV || "development",
     output: {
         path: `${__dirname}/dist`,
         filename: "bundle.js",
@@ -11,7 +10,10 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: "ts-loader"
+                use: [
+                    { loader: "babel-loader" },
+                    { loader: "ts-loader" }
+                ]
             }
         ]
     },
