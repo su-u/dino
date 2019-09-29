@@ -27,5 +27,5 @@ func main() {
     r.HandleFunc("/", rootHandler)
 
     http.Handle("/", r)
-    http.ListenAndServe(":9000", nil)
+    http.ListenAndServe(":80", nil)
 }
