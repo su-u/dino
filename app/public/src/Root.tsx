@@ -1,9 +1,12 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
-import App from './containers/App';
+import Game from './containers/Game';
+import GlobalStyle from "./components/GlobalStyle";
+
 
 export default ({ store }: any) => (
     <Provider store={store}>
-        <App />
+        <GlobalStyle />
+        <Game />
     </Provider>
 );

@@ -1,4 +1,17 @@
 import * as React from "react";
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
+
+interface Ball{
+    x: number,
+    y: number,
+    dx: number,
+    dy: number
+}
+
+interface Player{
+    x: number,
+    y: number
+}
 
 interface State{
     screen: {
@@ -13,6 +26,8 @@ interface State{
     context: any,
     keys: any,
     currentScore: number,
+    dx: number,
+    dy: number
 }
 
 export default class App extends React.Component<{}, State> {
@@ -31,8 +46,12 @@ export default class App extends React.Component<{}, State> {
             context: null,
             keys: 0,
             currentScore: 0,
+            dx: 10,
+            dy: 10
         }
     }
+
+
 
 
     componentDidMount() {
@@ -57,6 +76,10 @@ export default class App extends React.Component<{}, State> {
         const context = this.state.context;
         const {ball} = this.state;
         // const keys = this.state.keys;
+        const { dx, dy } = this.state;
+        var ballRadius = 10;
+
+        context.clearRect(0, 0, this.state.screen.width, this.state.screen.height);
 
         context.save();
         context.scale(this.state.screen.ratio, this.state.screen.ratio);
@@ -73,8 +96,17 @@ export default class App extends React.Component<{}, State> {
         context.fill();
         context.closePath();
 
-        var dx = 2;
-        var dy = 2;
+
+        var ndx: number = dx;
+        var ndy: number = dy;
+        if (ball.x + dx > this.state.screen.width - ballRadius || ball.x + dx < ballRadius) {
+            ndx = -dx;
+        }
+        if (ball.y + dy > this.state.screen.height - ballRadius || ball.y + dy < ballRadius) {
+            ndy = -dy;
+            console.log(dy);
+        }
+        this.setState({ dx: ndx, dy: ndy });
 
         ball.x += dx;
         ball.y += dy;
