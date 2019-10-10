@@ -35,6 +35,7 @@
     "webpack-dev-server": "^3.7.2"
   },
   "scripts": {
+    "dev": "docker-compose up --build && cd app/public/ && yarn watch",
     "build": "webpack",
     "watch": "webpack -w",
     "check": "yarn run tsc --noEmit && yarn run tslint",
