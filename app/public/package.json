@@ -38,7 +38,7 @@
   },
   "scripts": {
     "dev": "docker-compose up --build -d && yarn watch",
-    "build": "webpack",
+    "build": "webpack --progress",
     "watch": "webpack -d --watch --color --progress",
     "check": "yarn run tsc --noEmit && yarn run tslint",
     "tslint-fix": "tslint --fix --project tsconfig.json",
