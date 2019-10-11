@@ -48,9 +48,9 @@ export default class App extends React.Component<{}, State> {
         const context: any = this.refs.canvas.getContext("2d");
         this.setState({ context: context });
 
-        let ballArray = Enumerable.range(0, 50)
+        const ballArray = Enumerable.range(0, 50)
             .select(
-                x => new Ball(x, x, this.state.screen.width, this.state.screen.height)
+                x => new Ball(x + 5, x + 5, this.state.screen.width, this.state.screen.height)
             )
             .toArray();
         this.setState({ ball: ballArray });
@@ -62,17 +62,16 @@ export default class App extends React.Component<{}, State> {
     componentWillUnmount() { }
 
     handleKeys = (value: any, e: KeyboardEvent) => {
-        let { keys } = this.state;
-        keys = value;
+        const { keys } = this.state;
         this.setState({
             keys: keys
         });
     };
 
     update() {
-        const { ball, player, context } = this.state;
+        const { ball, player, context, screen } = this.state;
         // const keys = this.state.keys;
-        var ballRadius = 10;
+        const ballRadius = 10;
 
         context.clearRect(0, 0, this.state.screen.width, this.state.screen.height);
 
@@ -82,7 +81,7 @@ export default class App extends React.Component<{}, State> {
         // Motion trail
         context.fillStyle = "#000";
         context.globalAlpha = 0.4;
-        context.fillRect(0, 0, this.state.screen.width, this.state.screen.height);
+        context.fillRect(0, 0, screen.width * screen.ratio, screen.height * screen.ratio);
         context.globalAlpha = 1;
 
         context.beginPath();
@@ -97,8 +96,8 @@ export default class App extends React.Component<{}, State> {
             element.Update();
         });
 
-        var ndx: number = player.dx;
-        var ndy: number = player.dy;
+        let ndx: number = player.dx;
+        let ndy: number = player.dy;
         if (
             player.x + player.dx > this.state.screen.width - ballRadius ||
             player.x + player.dx < ballRadius

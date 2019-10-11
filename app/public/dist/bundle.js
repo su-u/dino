@@ -47423,7 +47423,6 @@ function (_super) {
 
     _this.handleKeys = function (value, e) {
       var keys = _this.state.keys;
-      keys = value;
 
       _this.setState({
         keys: keys
@@ -47467,7 +47466,7 @@ function (_super) {
       context: context
     });
     var ballArray = Enumerable.range(0, 50).select(function (x) {
-      return new Ball_1.default(x, x, _this.state.screen.width, _this.state.screen.height);
+      return new Ball_1.default(x + 5, x + 5, _this.state.screen.width, _this.state.screen.height);
     }).toArray();
     this.setState({
       ball: ballArray
@@ -47485,7 +47484,8 @@ function (_super) {
     var _a = this.state,
         ball = _a.ball,
         player = _a.player,
-        context = _a.context; // const keys = this.state.keys;
+        context = _a.context,
+        screen = _a.screen; // const keys = this.state.keys;
 
     var ballRadius = 10;
     context.clearRect(0, 0, this.state.screen.width, this.state.screen.height);
@@ -47494,7 +47494,7 @@ function (_super) {
 
     context.fillStyle = "#000";
     context.globalAlpha = 0.4;
-    context.fillRect(0, 0, this.state.screen.width, this.state.screen.height);
+    context.fillRect(0, 0, screen.width * screen.ratio, screen.height * screen.ratio);
     context.globalAlpha = 1;
     context.beginPath();
     context.arc(player.x, player.y, 10, 0, Math.PI * 2);

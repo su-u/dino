@@ -22,7 +22,6 @@ export default class Ball extends ColorObject implements IRender {
         context.closePath();
     }
 
-
     public Update = () => {
         this._x += (this._dx * this._speed);
         this._y += (this._dy * this._speed);
@@ -45,11 +44,11 @@ export default class Ball extends ColorObject implements IRender {
         this._dy = ndy;
     }
     
-    private GetRandomRadius = (): number => {
-        return Math.floor(Math.random() * 10) + 10;
-    }
-
     public set Speed(value: number) {
         this._speed = value;
+    }
+
+    private GetRandomRadius = (): number => {
+        return Math.floor(Math.random() * 10) + 10;
     }
 }

@@ -11,12 +11,6 @@ export default abstract class ColorObject extends BaseObject implements IColor {
         super(x, y);
     }
 
-    public SetRandomColor = (): void => {
-        this.R = Math.floor(Math.random() * 256);
-        this.G = Math.floor(Math.random() * 256);
-        this.B = Math.floor(Math.random() * 256);
-    }
-
     get R(): number {
         return this._r;
     }
@@ -45,6 +39,12 @@ export default abstract class ColorObject extends BaseObject implements IColor {
         if (this.ColorValueCheck(value)) {
             this._b = value;
         }
+    }
+
+    public SetRandomColor = (): void => {
+        this.R = Math.floor(Math.random() * 256);
+        this.G = Math.floor(Math.random() * 256);
+        this.B = Math.floor(Math.random() * 256);
     }
 
     public RgbToString = (): string => {
