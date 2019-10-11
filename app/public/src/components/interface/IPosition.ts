@@ -1,4 +1,7 @@
 export default interface IPosition{
-    x: number;
-    y: number;
+    _x: number;
+    _y: number;
+    _dx: number;
+    _dy: number;
+
 }

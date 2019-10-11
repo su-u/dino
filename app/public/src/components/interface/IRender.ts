@@ -1,4 +1,4 @@
 export default interface IRender{
-    draw(context: any): void;
+    Draw(context: any): void;
     Update(): void;
 }

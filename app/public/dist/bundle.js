@@ -47040,7 +47040,9 @@ var __importDefault = this && this.__importDefault || function (mod) {
   };
 };
 
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
@@ -47050,11 +47052,11 @@ var Game_1 = __importDefault(__webpack_require__(/*! ./containers/Game */ "./src
 
 var GlobalStyle_1 = __importDefault(__webpack_require__(/*! ./components/GlobalStyle */ "./src/components/GlobalStyle.tsx"));
 
-exports["default"] = function (_a) {
+exports.default = function (_a) {
   var store = _a.store;
   return React.createElement(react_redux_1.Provider, {
     store: store
-  }, React.createElement(GlobalStyle_1["default"], null), React.createElement(Game_1["default"], null));
+  }, React.createElement(GlobalStyle_1.default, null), React.createElement(Game_1.default, null));
 };
 
 /***/ }),
@@ -47069,54 +47071,253 @@ exports["default"] = function (_a) {
 "use strict";
 
 
-exports.__esModule = true;
+var __extends = this && this.__extends || function () {
+  var extendStatics = function (d, b) {
+    extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    };
+
+    return extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var ColorObject_1 = __importDefault(__webpack_require__(/*! ./ColorObject */ "./src/components/ColorObject.ts"));
 
 var Ball =
 /** @class */
-function () {
-  function Ball(x, xSize, ySize) {
-    var _this = this;
+function (_super) {
+  __extends(Ball, _super);
 
-    this.draw = function (context) {
+  function Ball(x, y, xSize, ySize) {
+    var _this = _super.call(this, x, y) || this;
+
+    _this.Draw = function (context) {
       context.beginPath();
-      context.arc(_this.x, _this.y, _this.ballRadius, 0, Math.PI * 2);
-      context.fillStyle = "#0095DD";
+      context.arc(_this._x, _this._y, _this.ballRadius, 0, Math.PI * 2);
+      context.fillStyle = "#" + _this.RgbToString();
       context.fill();
       context.closePath();
-      console.log(_this.x);
     };
 
-    this.update = function () {
-      _this.x += _this.dx;
-      _this.y += _this.dy;
-      var ndx = _this.dx;
-      var ndy = _this.dy;
+    _this.Update = function () {
+      _this._x += _this._dx * _this._speed;
+      _this._y += _this._dy * _this._speed;
+      var ndx = _this._dx;
+      var ndy = _this._dy;
 
-      if (_this.x + _this.dx > _this.xSize - _this.ballRadius || _this.x + _this.dx < _this.ballRadius) {
-        ndx = -_this.dx;
+      if (_this._x + _this._dx > _this.xSize - _this.ballRadius || _this._x + _this._dx < _this.ballRadius) {
+        ndx = -_this._dx;
       }
 
-      if (_this.y + _this.dy > _this.ySize - _this.ballRadius || _this.y + _this.dy < _this.ballRadius) {
-        ndy = -_this.dy;
+      if (_this._y + _this._dy > _this.ySize - _this.ballRadius || _this._y + _this._dy < _this.ballRadius) {
+        ndy = -_this._dy;
       }
 
-      _this.dx = ndx;
-      _this.dy = ndy;
+      _this._dx = ndx;
+      _this._dy = ndy;
     };
 
-    this.x = 50;
-    this.y = 50;
-    this.dx = x;
-    this.dy = x;
-    this.ballRadius = 10;
-    this.xSize = xSize;
-    this.ySize = ySize;
+    _this.GetRandomRadius = function () {
+      return Math.floor(Math.random() * 10) + 10;
+    };
+
+    _this.xSize = xSize;
+    _this.ySize = ySize;
+    _this.ballRadius = _this.GetRandomRadius();
+
+    _this.SetRandomColor();
+
+    return _this;
   }
 
+  Object.defineProperty(Ball.prototype, "Speed", {
+    set: function (value) {
+      this._speed = value;
+    },
+    enumerable: true,
+    configurable: true
+  });
   return Ball;
+}(ColorObject_1.default);
+
+exports.default = Ball;
+
+/***/ }),
+
+/***/ "./src/components/BaseObject.ts":
+/*!**************************************!*\
+  !*** ./src/components/BaseObject.ts ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var BaseObject =
+/** @class */
+function () {
+  function BaseObject(x, y) {
+    this._x = x;
+    this._y = y;
+    this._dx = x;
+    this._dy = y;
+    this._speed = 1;
+  }
+
+  return BaseObject;
 }();
 
-exports["default"] = Ball;
+exports.default = BaseObject;
+
+/***/ }),
+
+/***/ "./src/components/ColorObject.ts":
+/*!***************************************!*\
+  !*** ./src/components/ColorObject.ts ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __extends = this && this.__extends || function () {
+  var extendStatics = function (d, b) {
+    extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    };
+
+    return extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var BaseObject_1 = __importDefault(__webpack_require__(/*! ./BaseObject */ "./src/components/BaseObject.ts"));
+
+var ColorObject =
+/** @class */
+function (_super) {
+  __extends(ColorObject, _super);
+
+  function ColorObject(x, y) {
+    var _this = _super.call(this, x, y) || this;
+
+    _this._color = '';
+    _this._r = 0;
+    _this._g = 0;
+    _this._b = 0;
+
+    _this.SetRandomColor = function () {
+      _this.R = Math.floor(Math.random() * 256);
+      _this.G = Math.floor(Math.random() * 256);
+      _this.B = Math.floor(Math.random() * 256);
+    };
+
+    _this.RgbToString = function () {
+      _this._color = "" + _this.R.toString() + _this.G.toString() + _this.B.toString();
+      return _this._color;
+    };
+
+    _this.ColorValueCheck = function (value) {
+      if (0 < value && value < 256) return true;
+      return false;
+    };
+
+    return _this;
+  }
+
+  Object.defineProperty(ColorObject.prototype, "R", {
+    get: function () {
+      return this._r;
+    },
+    set: function (value) {
+      if (this.ColorValueCheck(value)) {
+        this._r = value;
+      }
+    },
+    enumerable: true,
+    configurable: true
+  });
+  Object.defineProperty(ColorObject.prototype, "G", {
+    get: function () {
+      return this._g;
+    },
+    set: function (value) {
+      if (this.ColorValueCheck(value)) {
+        this._g = value;
+      }
+    },
+    enumerable: true,
+    configurable: true
+  });
+  Object.defineProperty(ColorObject.prototype, "B", {
+    get: function () {
+      return this._b;
+    },
+    set: function (value) {
+      if (this.ColorValueCheck(value)) {
+        this._b = value;
+      }
+    },
+    enumerable: true,
+    configurable: true
+  });
+  return ColorObject;
+}(BaseObject_1.default);
+
+exports.default = ColorObject;
 
 /***/ }),
 
@@ -47142,12 +47343,14 @@ var __makeTemplateObject = this && this.__makeTemplateObject || function (cooked
   return cooked;
 };
 
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var styled_components_1 = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 
 var GlobalStyle = styled_components_1.createGlobalStyle(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  body {\n    font-family: Meiryo;\n    margin: 0;\n    padding: 0;\n  }\n"], ["\n  body {\n    font-family: Meiryo;\n    margin: 0;\n    padding: 0;\n  }\n"])));
-exports["default"] = GlobalStyle;
+exports.default = GlobalStyle;
 var templateObject_1;
 
 /***/ }),
@@ -47200,7 +47403,9 @@ var __importDefault = this && this.__importDefault || function (mod) {
   };
 };
 
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
@@ -47257,12 +47462,12 @@ function (_super) {
   App.prototype.componentDidMount = function () {
     var _this = this;
 
-    var context = this.refs.canvas.getContext('2d');
+    var context = this.refs.canvas.getContext("2d");
     this.setState({
       context: context
     });
     var ballArray = Enumerable.range(0, 50).select(function (x) {
-      return new Ball_1["default"](x, _this.state.screen.width, _this.state.screen.height);
+      return new Ball_1.default(x, x, _this.state.screen.width, _this.state.screen.height);
     }).toArray();
     this.setState({
       ball: ballArray
@@ -47277,17 +47482,17 @@ function (_super) {
   App.prototype.update = function () {
     var _this = this;
 
-    var context = this.state.context;
     var _a = this.state,
         ball = _a.ball,
-        player = _a.player; // const keys = this.state.keys;
+        player = _a.player,
+        context = _a.context; // const keys = this.state.keys;
 
     var ballRadius = 10;
     context.clearRect(0, 0, this.state.screen.width, this.state.screen.height);
     context.save();
     context.scale(this.state.screen.ratio, this.state.screen.ratio); // Motion trail
 
-    context.fillStyle = '#000';
+    context.fillStyle = "#000";
     context.globalAlpha = 0.4;
     context.fillRect(0, 0, this.state.screen.width, this.state.screen.height);
     context.globalAlpha = 1;
@@ -47298,8 +47503,8 @@ function (_super) {
     context.closePath(); // Enumerable.from(ball).select(x => x.draw(context));
 
     ball.forEach(function (element) {
-      element.draw(context);
-      element.update();
+      element.Draw(context);
+      element.Update();
     });
     var ndx = player.dx;
     var ndy = player.dy;
@@ -47332,7 +47537,7 @@ function (_super) {
   return App;
 }(React.Component);
 
-exports["default"] = App;
+exports.default = App;
 
 /***/ }),
 
@@ -47360,7 +47565,9 @@ var __importDefault = this && this.__importDefault || function (mod) {
   };
 };
 
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
@@ -47370,9 +47577,9 @@ var index_1 = __importDefault(__webpack_require__(/*! ./stores/index */ "./src/s
 
 var Root_1 = __importDefault(__webpack_require__(/*! ./Root */ "./src/Root.tsx"));
 
-var store = index_1["default"](); // HTML の <div id="react_container"></div> に要素を挿入します
+var store = index_1.default(); // HTML の <div id="react_container"></div> に要素を挿入します
 
-react_dom_1.render(React.createElement(Root_1["default"], {
+react_dom_1.render(React.createElement(Root_1.default, {
   store: store
 }), document.getElementById('react_container'));
 
@@ -47388,7 +47595,9 @@ react_dom_1.render(React.createElement(Root_1["default"], {
 "use strict";
 
 
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var immutable_1 = __webpack_require__(/*! immutable */ "./node_modules/immutable/dist/immutable.js");
 
@@ -47405,7 +47614,7 @@ function default_1(state, action) {
   });
 }
 
-exports["default"] = default_1;
+exports.default = default_1;
 
 /***/ }),
 
@@ -47425,14 +47634,16 @@ var __importDefault = this && this.__importDefault || function (mod) {
   };
 };
 
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var redux_1 = __webpack_require__(/*! redux */ "./node_modules/redux/es/index.js");
 
 var app_1 = __importDefault(__webpack_require__(/*! ./app */ "./src/reducers/app.ts"));
 
-exports["default"] = redux_1.combineReducers({
-  app: app_1["default"]
+exports.default = redux_1.combineReducers({
+  app: app_1.default
 });
 
 /***/ }),
@@ -47453,7 +47664,9 @@ var __importDefault = this && this.__importDefault || function (mod) {
   };
 };
 
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var redux_1 = __webpack_require__(/*! redux */ "./node_modules/redux/es/index.js");
 
@@ -47462,14 +47675,14 @@ var redux_thunk_1 = __importDefault(__webpack_require__(/*! redux-thunk */ "./no
 var reducers_1 = __importDefault(__webpack_require__(/*! ../reducers */ "./src/reducers/index.ts"));
 
 function createFinalStore() {
-  var thunk_middle_ware = redux_thunk_1["default"];
+  var thunk_middle_ware = redux_thunk_1.default;
   var middlewares = redux_1.applyMiddleware(thunk_middle_ware);
   var isDevelopEnv = "development" === "development";
-  var store = redux_1.createStore(reducers_1["default"], {}, middlewares);
+  var store = redux_1.createStore(reducers_1.default, {}, middlewares);
   return store;
 }
 
-exports["default"] = createFinalStore;
+exports.default = createFinalStore;
 
 /***/ })
 
