@@ -4,6 +4,7 @@
     ],
     "compilerOptions": {
         "sourceMap": true,
+        "target": "es5",
         "lib": [
             "dom",
             "es2015"
