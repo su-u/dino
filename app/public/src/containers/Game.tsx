@@ -81,12 +81,12 @@ export default class App extends React.Component<{}, State> {
         // Motion trail
         context.fillStyle = "#000";
         context.globalAlpha = 0.4;
-        context.fillRect(0, 0, screen.width * screen.ratio, screen.height * screen.ratio);
+        context.fillRect(0, 0, screen.width, screen.height);
         context.globalAlpha = 1;
 
         context.beginPath();
         context.arc(player.x, player.y, 10, 0, Math.PI * 2);
-        context.fillStyle = "#0095DD";
+        context.fillStyle = "#0AA0DD";
         context.fill();
         context.closePath();
 
@@ -130,8 +130,8 @@ export default class App extends React.Component<{}, State> {
         return (
             <canvas
                 ref="canvas"
-                width={screen.width * screen.ratio}
-                height={screen.height * screen.ratio}
+                width={screen.width}
+                height={screen.height}
             />
         );
     };
