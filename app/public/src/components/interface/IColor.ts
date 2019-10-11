@@ -47,8 +47,9 @@ export default class IColor{
         this.B = Math.floor(Math.random() * 256);
     }
 
-    private RgbToString = ():void => {
+    private RgbToString = (): string => {
         this._color = `${this.R.toString()}${this.G.toString()}${this.B.toString()}`;
+        return this._color;
     }
 
     private ColorValueCheck = (value: number): boolean => {
