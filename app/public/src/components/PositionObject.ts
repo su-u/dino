@@ -1,6 +1,6 @@
 import IPosition from './interface/IPosition';
 
-export default abstract class BaseObject implements IPosition {
+export default abstract class PositionObject implements IPosition {
     public _x: number;
     public _y: number;
     public _dx: number;

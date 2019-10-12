@@ -26,7 +26,7 @@ export default class Player extends ColorObject implements IPlayer {
     }
 
     public MoveUp = () => {
-
+        
     }
 
     public MoveDown = () => {

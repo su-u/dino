@@ -5,6 +5,7 @@ module.exports = {
         filename: "bundle.js",
         sourceMapFilename: 'bundle.js.map',
     },
+    watch: true,
     devtool: 'source-map',
     module: {
         rules: [
@@ -19,5 +20,8 @@ module.exports = {
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".json"]
+    },
+    watchOptions: {
+        poll: 500
     }
 };

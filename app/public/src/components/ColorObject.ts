@@ -1,7 +1,7 @@
 import IColor from "./interface/IColor";
-import BaseObject from "./BaseObject";
+import PositionObject from "./PositionObject";
 
-export default abstract class ColorObject extends BaseObject implements IColor {
+export default abstract class ColorObject extends PositionObject implements IColor {
     public _color: string = '';
     public _r: number = 0;
     public _g: number = 0;

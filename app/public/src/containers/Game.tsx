@@ -2,6 +2,7 @@ import * as React from "react";
 import * as Enumerable from "linq";
 import Ball from "../components/Ball";
 
+
 interface Player {
     x: number;
     y: number;
@@ -45,12 +46,13 @@ export default class App extends React.Component<{}, State> {
     }
 
     componentDidMount() {
+        const { screen } = this.state;
         const context: any = this.refs.canvas.getContext("2d");
         this.setState({ context: context });
 
         const ballArray = Enumerable.range(0, 50)
             .select(
-                x => new Ball(x + 5, x + 5, this.state.screen.width, this.state.screen.height)
+                x => new Ball(x + 5, x + 5, screen.width, screen.height)
             )
             .toArray();
         this.setState({ ball: ballArray });
@@ -73,7 +75,7 @@ export default class App extends React.Component<{}, State> {
         // const keys = this.state.keys;
         const ballRadius = 10;
 
-        context.clearRect(0, 0, this.state.screen.width, this.state.screen.height);
+        //context.clearRect(0, 0, this.state.screen.width, this.state.screen.height);
 
         context.save();
         context.scale(this.state.screen.ratio, this.state.screen.ratio);
@@ -130,8 +132,8 @@ export default class App extends React.Component<{}, State> {
         return (
             <canvas
                 ref="canvas"
-                width={screen.width}
-                height={screen.height}
+                width={screen.width * screen.ratio}
+                height={screen.height * screen.ratio}
             />
         );
     };
