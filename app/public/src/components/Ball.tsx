@@ -1,24 +1,23 @@
-import * as React from "react";
+import React, {useState} from "react";
 import Konva from "konva";
-import { Shape } from "react-konva";
-const { useState } = React;
+import { Circle } from "react-konva";
 
-export const Ball = () => {
-    const width = 10;
-    const height = 10;
+const Ball = () => {
+    const radius = 10;
 
-    const [x] = useState(10);
-    const [y] = useState(10);
+    const [x] = useState(30);
+    const [y] = useState(50);
     const [color] = useState(Konva.Util.getRandomColor());
 
     return (
-        <Shape
+        <Circle
             x={x}
             y={y}
-            height={height}
-            width={width}
+            radius={radius}
             fill={color}
         />
     );
 }
+
+export default Ball;
 
