@@ -1,14 +1,9 @@
-import * as React from "react";
+import React, {useState} from "react";
 import * as Enumerable from "linq";
-import Ball from "../components/Ball";
-
-
-interface Player {
-    x: number;
-    y: number;
-    dx: number;
-    dy: number;
-}
+import { Stage, Layer, Text } from 'react-konva';
+// import {Ball} from '../components/Ball';
+import { Shape } from "react-konva";
+import Konva from "konva";
 
 interface State {
     screen: {
@@ -16,8 +11,7 @@ interface State {
         height: any;
         ratio: any;
     };
-    ball: Ball[];
-    player: Player;
+    // ball: Ball[];
     context: any;
     keys: any;
     currentScore: number;
@@ -32,13 +26,7 @@ export default class App extends React.Component<{}, State> {
                 height: window.innerHeight,
                 ratio: window.devicePixelRatio || 1
             },
-            ball: [],
-            player: {
-                x: 50,
-                y: 50,
-                dx: 10,
-                dy: 10
-            },
+            // ball: [],
             context: null,
             keys: 0,
             currentScore: 0
@@ -50,12 +38,12 @@ export default class App extends React.Component<{}, State> {
         const context: any = this.refs.canvas.getContext("2d");
         this.setState({ context: context });
 
-        const ballArray = Enumerable.range(0, 50)
-            .select(
-                x => new Ball(x + 5, x + 5, screen.width, screen.height)
-            )
-            .toArray();
-        this.setState({ ball: ballArray });
+        // const ballArray = Enumerable.range(0, 50)
+        //     .select(
+        //         x => new Ball(x + 5, x + 5, screen.width, screen.height)
+        //     )
+        //     .toArray();
+        // this.setState({ ball: ballArray });
         requestAnimationFrame(() => {
             this.update();
         });
@@ -71,7 +59,7 @@ export default class App extends React.Component<{}, State> {
     };
 
     update() {
-        const { ball, player, context, screen } = this.state;
+        const { context, screen } = this.state;
         // const keys = this.state.keys;
         const ballRadius = 10;
 
@@ -86,39 +74,12 @@ export default class App extends React.Component<{}, State> {
         context.fillRect(0, 0, screen.width, screen.height);
         context.globalAlpha = 1;
 
-        context.beginPath();
-        context.arc(player.x, player.y, 10, 0, Math.PI * 2);
-        context.fillStyle = "#0AA0DD";
-        context.fill();
-        context.closePath();
-
         // Enumerable.from(ball).select(x => x.draw(context));
-        ball.forEach(element => {
-            element.Draw(context);
-            element.Update();
-        });
+        // ball.forEach(element => {
+        //     element.Draw(context);
+        //     element.Update();
+        // });
 
-        let ndx: number = player.dx;
-        let ndy: number = player.dy;
-        if (
-            player.x + player.dx > this.state.screen.width - ballRadius ||
-            player.x + player.dx < ballRadius
-        ) {
-            ndx = -player.dx;
-        }
-        if (
-            player.y + player.dy > this.state.screen.height - ballRadius ||
-            player.y + player.dy < ballRadius
-        ) {
-            ndy = -player.dy;
-        }
-
-        player.x += player.dx;
-        player.y += player.dy;
-        this.setState({
-            ball: ball,
-            player: { x: player.x, y: player.y, dx: ndx, dy: ndy }
-        });
         context.restore();
 
         requestAnimationFrame(() => {
@@ -126,15 +87,42 @@ export default class App extends React.Component<{}, State> {
         });
     }
 
-    render = () => {
+    render = () =>{
         const { screen } = this.state;
 
         return (
-            <canvas
-                ref="canvas"
-                width={screen.width * screen.ratio}
-                height={screen.height * screen.ratio}
-            />
+            // <canvas
+            //     ref="canvas"
+            //     width={screen.width * screen.ratio}
+            //     height={screen.height * screen.ratio}
+            // />
+            // <Stage width={screen.width} height={screen.height}>
+            //     <Layer>
+            //         <Text text="Try click on rect" />
+            //         {/* <Ball /> */}
+            //     </Layer>
+            // </Stage>
+            <p>aaaa</p>
         );
     };
 }
+
+export const Ball = () => {
+    const width = 10;
+    const height = 10;
+
+    const [x] = useState(10);
+    const [y] = useState(10);
+    const [color] = useState(Konva.Util.getRandomColor());
+
+    return (
+        <Shape
+            x={x}
+            y={y}
+            height={height}
+            width={width}
+            fill={color}
+        />
+    );
+}
+
