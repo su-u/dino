@@ -2,6 +2,7 @@ import React from "react";
 import * as Enumerable from "linq";
 import { Stage, Layer, Text, Rect } from 'react-konva';
 import Ball from '../components/Ball';
+import Star from '../components/Star';
 import SideBox from '../components/SideBox';
 
 interface State {
@@ -21,8 +22,9 @@ export default class Game extends React.Component<{}, State> {
         return (
             <Stage width={window.innerWidth} height={window.innerHeight}>
                 <Layer>
-                    <SideBox x={0} width={width} height={window.innerHeight} color={'red'}/>
+                    <SideBox x={0} width={width} height={window.innerHeight} color={'red'} />
                     <SideBox x={rightPosition} width={width} height={window.innerHeight} color={'black'} />
+                    <Star />
                 </Layer>
             </Stage>
         );
