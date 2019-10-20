@@ -6,8 +6,8 @@
     "main": "server.js",
     "license": "MIT",
     "scripts": {
-        "bs": "browser-sync start --files \"/usr/src/public/**/*\"",
-        "local": "browser-sync start --files \"../../../app/public/dist/**/*\""
+        "bs": "browser-sync start --server '/usr/src/public'--files '**/*'",
+        "local": "browser-sync start --server '../../../app/public/dist/' --files '**/*'"
     },
     "dependencies": {
         "browser-sync": "^2.26.7"
