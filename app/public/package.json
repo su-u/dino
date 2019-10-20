@@ -39,7 +39,8 @@
     "webpack-dev-server": "^3.7.2"
   },
   "scripts": {
-    "dev": "docker-compose -f ../../docker-compose.yml -f ../../dev.yml  up --build -d && yarn watch",
+    "dev": "docker-compose -f ../../docker-compose.yml -f ../../pro.yml  up --build -d && yarn watch",
+    "dev2": "docker-compose -f ../../docker-compose.yml -f ../../dev.yml  up --build -d && yarn watch",
     "docker-stop": "docker stop $(docker ps -a -q) ",
     "build": "webpack --progress",
     "watch": "webpack --watch --color --progress --info-verbosity verbose",
