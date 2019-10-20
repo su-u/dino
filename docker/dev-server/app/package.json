@@ -1,0 +1,15 @@
+{
+    "name": "dev-server",
+    "version": "1.0.0",
+    "description": "Node.js on Docker",
+    "author": "First Last <first.last@example.com>",
+    "main": "server.js",
+    "license": "MIT",
+    "scripts": {
+        "bs": "browser-sync start --files \"/usr/src/public/**/*\"",
+        "local": "browser-sync start --files \"../../../app/public/dist/**/*\""
+    },
+    "dependencies": {
+        "browser-sync": "^2.26.7"
+    }
+}

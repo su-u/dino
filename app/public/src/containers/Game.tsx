@@ -21,17 +21,7 @@ export default class Game extends React.Component<{}, State> {
         return (
             <Stage width={window.innerWidth} height={window.innerHeight}>
                 <Layer>
-                    <Text text="Try click on rect" />
                     <SideBox x={0} width={width} height={window.innerHeight} color={'red'}/>
-                    <Ball />
-                    {/* <Rect
-                        x={20}
-                        y={20}
-                        width={50}
-                        height={50}
-                        fill={"#000000"}
-                        shadowBlur={5}
-                    /> */}
                     <SideBox x={rightPosition} width={width} height={window.innerHeight} color={'black'} />
                 </Layer>
             </Stage>

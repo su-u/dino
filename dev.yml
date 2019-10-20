@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  web:
+    build: ./docker/dev-server
+    volumes:
+      - ./docker/dev-server/app:/usr/src/app:z
+      - ./app/public/dist:/usr/src/public:z
+    ports:
+      - "3000"
+    command: bash -c "cd /usr/src/public;npm run bs"
+    restart: always
