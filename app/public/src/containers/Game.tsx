@@ -24,7 +24,9 @@ export default class Game extends React.Component<{}, State> {
                 <Layer>
                     <SideBox x={0} width={width} height={window.innerHeight} color={'red'} />
                     <SideBox x={rightPosition} width={width} height={window.innerHeight} color={'black'} />
-                    <Star />
+                    {[...Array(10)].map((_, i) => (
+                        <Star key={i} />
+                    )}
                 </Layer>
             </Stage>
         );
