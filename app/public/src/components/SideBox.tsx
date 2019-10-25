@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { Rect } from "react-konva";
-
-interface Props{
+import React, { useState } from 'react';
+import { Rect } from 'react-konva';
+interface Props {
     x: number;
     width: number;
     height: number;
@@ -19,7 +18,6 @@ const SideBox = (props: Props) => {
             strokeWidth={10}
         />
     );
-}
+};
 
 export default SideBox;
-

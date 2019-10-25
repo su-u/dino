@@ -1,11 +1,28 @@
-import React, { useState } from "react";
-import Konva from "konva";
-import { Star as StarKonva } from "react-konva";
+import React, { useState } from 'react';
+import Konva from 'konva';
+import { Star as StarKonva } from 'react-konva';
+import PositionData from './PositionData';
 
-const Star = () => {
-    const [x] = useState(30);
-    const [y] = useState(50);
-    const [color] = useState(Konva.Util.getRandomColor());
+interface Props {
+    positionData: PositionData;
+}
+
+const Star: React.FunctionComponent<Props> = ({ positionData }) => {
+    const { innerHeight, leftBox, rifhtBox } = positionData;
+
+    const randomColor = () => {
+        const max = 1;
+        const rnd = Math.round(Math.random() * Math.floor(max));
+        return rnd == 0 ? 'red' : 'black';
+    };
+
+    const getRandomStartPosition = (min: number, max: number) => {
+        return Math.round(Math.random() * (max - min)) + min;
+    };
+
+    const [x] = useState(getRandomStartPosition(leftBox, rifhtBox));
+    const [y] = useState(getRandomStartPosition(0, innerHeight));
+    const [color] = useState(randomColor());
 
     const handleDragStart = (e: any) => {
         e.target.setAttrs({
@@ -45,7 +62,6 @@ const Star = () => {
             onDragEnd={handleDragEnd}
         />
     );
-}
+};
 
 export default Star;
-
