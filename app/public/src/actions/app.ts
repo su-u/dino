@@ -8,3 +8,5 @@ export const login = (name: string) => {
 export const postScore = (name: string, score: number) => {};
 
 export const getScore = () => {};
+
+export const addScore = (score: number) => {};

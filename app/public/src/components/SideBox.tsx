@@ -6,7 +6,6 @@ interface Props {
     height: number;
     color: string;
 }
-
 const SideBox = (props: Props) => {
     return (
         <Rect

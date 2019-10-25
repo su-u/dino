@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
 import Konva from 'konva';
 import { Star as StarKonva } from 'react-konva';
+import { bindActionCreators } from 'redux';
+import { connect, Dispatch } from 'react-redux';
+import * as Actions from '../actions/app';
 import PositionData from './PositionData';
+import {
+    randomColor,
+    getRandomStartPosition,
+    isFreePosition
+} from '../utilities';
 
 interface Props {
     positionData: PositionData;
+    addScore: () => void;
 }
 
-const Star: React.FunctionComponent<Props> = ({ positionData }) => {
+const Star: React.FunctionComponent<Props> = ({ positionData, addScore }) => {
     const { innerHeight, leftBox, rifhtBox } = positionData;
-
-    const randomColor = () => {
-        const max = 1;
-        const rnd = Math.round(Math.random() * Math.floor(max));
-        return rnd == 0 ? 'red' : 'black';
-    };
-
-    const getRandomStartPosition = (min: number, max: number) => {
-        return Math.round(Math.random() * (max - min)) + min;
-    };
 
     const [x] = useState(getRandomStartPosition(leftBox, rifhtBox));
     const [y] = useState(getRandomStartPosition(0, innerHeight));
     const [color] = useState(randomColor());
+    const [visible, setVisible] = useState(true);
 
     const handleDragStart = (e: any) => {
         e.target.setAttrs({
@@ -43,24 +43,30 @@ const Star: React.FunctionComponent<Props> = ({ positionData }) => {
             shadowOffsetX: 5,
             shadowOffsetY: 5
         });
+        setVisible(isFreePosition(e.target.x(), color, positionData));
+        addScore();
     };
 
     return (
-        <StarKonva
-            x={x}
-            y={y}
-            numPoints={5}
-            innerRadius={20}
-            outerRadius={40}
-            fill={color}
-            draggable
-            shadowColor="black"
-            shadowBlur={10}
-            shadowOpacity={0.6}
-            rotation={Math.random() * 180}
-            onDragStart={handleDragStart}
-            onDragEnd={handleDragEnd}
-        />
+        <>
+            {visible && (
+                <StarKonva
+                    x={x}
+                    y={y}
+                    numPoints={5}
+                    innerRadius={20}
+                    outerRadius={40}
+                    fill={color}
+                    draggable
+                    shadowColor="black"
+                    shadowBlur={10}
+                    shadowOpacity={0.6}
+                    rotation={Math.random() * 180}
+                    onDragStart={handleDragStart}
+                    onDragEnd={handleDragEnd}
+                />
+            )}
+        </>
     );
 };
 
