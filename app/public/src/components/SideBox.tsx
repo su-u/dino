@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Rect } from 'react-konva';
 interface Props {
     x: number;

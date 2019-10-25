@@ -43,8 +43,11 @@ const Star: React.FunctionComponent<Props> = ({ positionData, addScore }) => {
             shadowOffsetX: 5,
             shadowOffsetY: 5
         });
-        setVisible(isFreePosition(e.target.x(), color, positionData));
-        addScore();
+        const isFree = isFreePosition(e.target.x(), color, positionData);
+        setVisible(isFree);
+        if (!isFree) {
+            addScore();
+        }
     };
 
     return (
@@ -61,7 +64,7 @@ const Star: React.FunctionComponent<Props> = ({ positionData, addScore }) => {
                     shadowColor="black"
                     shadowBlur={10}
                     shadowOpacity={0.6}
-                    rotation={Math.random() * 180}
+                    rotation={rotation}s
                     onDragStart={handleDragStart}
                     onDragEnd={handleDragEnd}
                 />
