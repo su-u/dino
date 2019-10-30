@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import Konva from 'konva';
 import { Star as StarKonva } from 'react-konva';
-import { bindActionCreators } from 'redux';
-import { connect, Dispatch } from 'react-redux';
-import * as Actions from '../actions/app';
 import PositionData from './PositionData';
 import {
     randomColor,

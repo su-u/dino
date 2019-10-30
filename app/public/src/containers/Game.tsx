@@ -3,6 +3,7 @@ import { Stage, Layer, Text, Rect } from 'react-konva';
 import Star from '../components/Star';
 import SideBox from '../components/SideBox';
 import PositionData from '../components/PositionData';
+import GameStart from '../components/GameStart';
 
 interface State {
     screen: {
@@ -11,28 +12,43 @@ interface State {
     };
     keys: any;
     score: number;
+    is_start: boolean;
+    is_clear: boolean;
 }
+
+const initState = {
+    screen: {
+        width: window.innerWidth,
+        height: window.innerHeight,
+    },
+    keys: false,
+    score: 0,
+    is_start: false,
+    is_clear: false
+}
+
+const clearScore = 100;
 
 export default class Game extends React.Component<{}, State> {
     constructor() {
         super({});
-        this.state = {
-            screen: {
-                width: window.innerWidth,
-                height: window.innerHeight,
-            },
-            keys: false,
-            score: 0
-        }
+        this.state = initState;
     }
 
     addScore = () => {
         const { score } = this.state;
         this.setState({ score: score + 1 });
+        if (score >= clearScore) {
+            this.setState({ is_clear: true });
+        }
+    }
+
+    gameStart = () => {
+        this.setState({ is_start: true });
     }
     
     render() {
-        const { score } = this.state;
+        const { score, is_clear, is_start } = this.state;
         const positionData: PositionData = {
             innerWidth: window.innerWidth,
             innerHeight: window.innerHeight,
@@ -48,12 +64,15 @@ export default class Game extends React.Component<{}, State> {
                 <Layer>
                     <SideBox x={0} width={positionData.leftBox} height={window.innerHeight} color={'red'} />
                     <SideBox x={positionData.rifhtBox} width={positionData.innerWidth} height={window.innerHeight} color={'black'} />
-                    {[...Array(20)].map((_, i) => (
+                        {[...Array(clearScore)].map((_, i) => (
                         <Star key={i} positionData={positionData} addScore={this.addScore} />
                     ))}
                         <Text text={score.toString()} fontSize={30}/>
                 </Layer>
             </Stage>
+            {!is_start && (
+                <GameStart startFunc={this.gameStart}/>
+            )}
             </>
         );
     };
