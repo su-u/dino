@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
@@ -16,8 +16,6 @@ const Overlay = styled.div`
 
 const StartButton = styled.div`
     position: fixed;
-    top: 50%;
-    left: 50%;
     border: 1px solid green;
     border-radius: 5px;
     background-color: green;
@@ -25,21 +23,23 @@ const StartButton = styled.div`
     text-align: center;
     color: white;
     width: 150px;
+    height: 30px;
     cursor: pointer;
-    &:hover{
+    top: calc(50% - 30px / 2);
+    left: calc(50% - 150px / 2);
+    &:hover {
         background-color: #084c08;
         border: 1px solid #084c08;
     }
 `;
 
-
-const GameStart:React.FunctionComponent<Props> = ({startFunc}) => {
+const GameStart: React.FunctionComponent<Props> = ({ startFunc }: any) => {
     return (
         <>
             <Overlay />
             <StartButton onClick={startFunc}>スタート</StartButton>
         </>
     );
-}
+};
 
 export default GameStart;
