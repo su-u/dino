@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stage, Layer, Text, Rect } from 'react-konva';
+import { Stage, Layer, Text } from 'react-konva';
 import Star from '../components/Star';
 import SideBox from '../components/SideBox';
 import PositionData from '../components/PositionData';
@@ -10,10 +10,9 @@ const clearScore = 1;
 
 interface State {
     screen: {
-        width: any;
-        height: any;
+        width: number;
+        height: number;
     };
-    keys: any;
     score: number;
     is_start: boolean;
     is_clear: boolean;
@@ -25,11 +24,10 @@ const initState = {
         width: window.innerWidth,
         height: window.innerHeight
     },
-    keys: false,
     score: 0,
     is_start: false,
     is_clear: false,
-    starArray: [...new Array(clearScore)]
+    starArray: [...Array(clearScore)]
 };
 
 export default class Game extends React.Component<{}, State> {
