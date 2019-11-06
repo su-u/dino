@@ -4,6 +4,7 @@ import styled from 'styled-components';
 interface Props {
     clearFunc: () => void;
     score: number;
+    starNumber: number;
 }
 
 const Overlay = styled.div`
@@ -52,14 +53,16 @@ const ScoreText = styled.div`
 `;
 
 const GameClear: React.FunctionComponent<Props> = (props: Props) => {
-    const { clearFunc, score } = props;
+    const { clearFunc, score, starNumber } = props;
+
+    const average = score / starNumber;
 
     return (
         <>
             <Overlay />
             <ClearText>クリア</ClearText>
-            <ScoreText>score:{score}</ScoreText>
-            <StartButton onClick={clearFunc}>リスタート</StartButton>
+            <ScoreText>score:{score}s(average:{average.toFixed(1)}s)</ScoreText>
+            <StartButton onClick={clearFunc}>タイトルに戻る</StartButton>
         </>
     );
 };

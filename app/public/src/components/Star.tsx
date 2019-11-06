@@ -20,7 +20,7 @@ const Star: React.FunctionComponent<Props> = ({ positionData, addScore }) => {
     const [y] = useState(getRandomStartPosition(0, innerHeight));
     const [color] = useState(randomColor());
     const [visible, setVisible] = useState(true);
-    const [rotation, setRotation] = useState(Math.random() * 180);
+    const [rotation] = useState(Math.random() * 180);
 
     const handleDragStart = (e: any) => {
         e.target.setAttrs({

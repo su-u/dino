@@ -27,16 +27,32 @@ const StartButton = styled.div`
     cursor: pointer;
     top: calc(50% - 30px / 2);
     left: calc(50% - 150px / 2);
+    font-weight: bold;
+    font-size: 27px;
     &:hover {
         background-color: #084c08;
         border: 1px solid #084c08;
     }
 `;
 
+const TitleText = styled.div`
+    position: fixed;
+    width: 360px;
+    top: 30%;
+    left: calc(50% - 360px / 2);
+    color: #364e96;
+    font-size: 60px;
+    border: 1px solid green;
+    border-radius: 5px;
+    background-color: #cbd944;
+    padding: 20px;
+`;
+
 const GameStart: React.FunctionComponent<Props> = ({ startFunc }: any) => {
     return (
         <>
             <Overlay />
+            <TitleText>星をわけろ！</TitleText>
             <StartButton onClick={startFunc}>スタート</StartButton>
         </>
     );

@@ -5,102 +5,80 @@ import SideBox from '../components/SideBox';
 import PositionData from '../components/PositionData';
 import GameStart from '../components/GameStart';
 import GameClear from '../components/GameClear';
+import { useStopwatch } from '../utilities';
 
-const clearScore = 1;
+const clearScore = 30;
 
-interface State {
-    screen: {
-        width: number;
-        height: number;
-    };
-    score: number;
-    is_start: boolean;
-    is_clear: boolean;
-    starArray: any[];
-}
+const Game: React.FunctionComponent = () => {
 
-const initState = {
-    screen: {
-        width: window.innerWidth,
-        height: window.innerHeight
-    },
-    score: 0,
-    is_start: false,
-    is_clear: false,
-    starArray: [...Array(clearScore)]
-};
+    const [score, setScore] = React.useState(0);
+    const [isStart, setStart] = React.useState(false);
+    const [isClear, setClear] = React.useState(false);
+    const [starArray] = React.useState([...Array(clearScore)]);
+    const {
+        elapsedTime,
+        startTimer,
+        stopTimer,
+    } = useStopwatch();
 
-export default class Game extends React.Component<{}, State> {
-    constructor() {
-        super({});
-        this.state = initState;
-    }
-
-    addScore = () => {
-        const { score } = this.state;
+    const addScore = () => {
         const newScore = score + 1;
-        this.setState({ score: newScore });
+        setScore(newScore);
         if (newScore >= clearScore) {
-            this.setState({ is_clear: true });
+            setClear(true);
+            stopTimer();
         }
     };
 
-    gameStart = () => {
-        this.setState({ is_start: true });
+    const positionData: PositionData = {
+        innerWidth: window.innerWidth,
+        innerHeight: window.innerHeight,
+        innerWidthHalf: window.innerWidth * 0.5,
+        innerHeightHalf: window.innerHeight * 0.5,
+        leftBox: window.innerWidth * 0.2,
+        rifhtBox: window.innerWidth * 0.8
     };
 
-    gameReStart = () => {
-        this.setState({
-            is_start: true,
-            is_clear: false,
-            score: 0,
-            starArray: [...new Array(clearScore)]
-        });
+    const gameStart = () => {
+        setStart(true);
+        startTimer();
     };
 
-    render() {
-        const { score, is_clear, is_start, starArray } = this.state;
-        console.log(starArray);
-        const positionData: PositionData = {
-            innerWidth: window.innerWidth,
-            innerHeight: window.innerHeight,
-            innerWidthHalf: window.innerWidth * 0.5,
-            innerHeightHalf: window.innerHeight * 0.5,
-            leftBox: window.innerWidth * 0.2,
-            rifhtBox: window.innerWidth * 0.8
-        };
-
-        return (
-            <>
-                <Stage width={window.innerWidth} height={window.innerHeight}>
-                    <Layer>
-                        <SideBox
-                            x={0}
-                            width={positionData.leftBox}
-                            height={window.innerHeight}
-                            color={'red'}
+    const gameReStart = () => {
+        location.reload();
+    };
+    return (
+        <>
+            <Stage width={window.innerWidth} height={window.innerHeight}>
+                <Layer>
+                    <SideBox
+                        x={0}
+                        width={positionData.leftBox}
+                        height={window.innerHeight}
+                        color={'red'}
+                    />
+                    <SideBox
+                        x={positionData.rifhtBox}
+                        width={positionData.innerWidth}
+                        height={window.innerHeight}
+                        color={'black'}
+                    />
+                    {starArray.map((_, i) => (
+                        <Star
+                            key={i}
+                            positionData={positionData}
+                            addScore={addScore}
                         />
-                        <SideBox
-                            x={positionData.rifhtBox}
-                            width={positionData.innerWidth}
-                            height={window.innerHeight}
-                            color={'black'}
-                        />
-                        {starArray.map((_, i) => (
-                            <Star
-                                key={i}
-                                positionData={positionData}
-                                addScore={this.addScore}
-                            />
-                        ))}
-                        <Text text={score.toString()} fontSize={30} />
-                    </Layer>
-                </Stage>
-                {!is_start && <GameStart startFunc={this.gameStart} />}
-                {is_clear && (
-                    <GameClear clearFunc={this.gameReStart} score={score} />
-                )}
-            </>
-        );
-    }
+                    ))}
+                    <Text text={`${elapsedTime}s`} fontSize={30} />
+                </Layer>
+            </Stage>
+            {!isStart && <GameStart startFunc={gameStart} />}
+            {isClear && (
+                <GameClear clearFunc={gameReStart} score={parseFloat(elapsedTime)} starNumber={clearScore}/>
+            )}
+        </>
+    );
 }
+
+export default Game;
