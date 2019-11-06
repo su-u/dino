@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 interface Props {
     clearFunc: () => void;
+    score: number;
 }
 
 const Overlay = styled.div`
@@ -33,10 +34,32 @@ const StartButton = styled.div`
     }
 `;
 
-const GameClear: React.FunctionComponent<Props> = ({ clearFunc }) => {
+const ClearText = styled.div`
+    position: fixed;
+    width: 180px;
+    top: 30%;
+    left: calc(50% - 180px / 2);
+    color: #364e96;
+    font-size: 60px;
+`;
+
+const ScoreText = styled.div`
+    position: fixed;
+    width: 110px;
+    top: 40%;
+    left: calc(50% - 110px / 2);
+    font-size: 30px;
+`;
+
+const GameClear: React.FunctionComponent<Props> = (props: Props) => {
+    const { clearFunc, score } = props;
+
     return (
         <>
             <Overlay />
+            <ClearText>クリア</ClearText>
+            <ScoreText>score:{score}</ScoreText>
+            <StartButton onClick={clearFunc}>リスタート</StartButton>
         </>
     );
 };

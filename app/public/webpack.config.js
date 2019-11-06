@@ -1,9 +1,9 @@
 module.exports = {
-    mode: process.env.NODE_ENV || "development",
+    mode: process.env.NODE_ENV || 'development',
     output: {
         path: `${__dirname}/dist`,
-        filename: "bundle.js",
-        sourceMapFilename: 'bundle.js.map',
+        filename: 'bundle.js',
+        sourceMapFilename: 'bundle.js.map'
     },
     watch: true,
     devtool: 'source-map',
@@ -11,15 +11,12 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: [
-                    { loader: "babel-loader" },
-                    { loader: "ts-loader" }
-                ]
+                use: [{ loader: 'babel-loader' }, { loader: 'ts-loader' }]
             }
         ]
     },
     resolve: {
-        extensions: [".ts", ".tsx", ".js", ".json"]
+        extensions: ['.ts', '.tsx', '.js', '.json']
     },
     watchOptions: {
         poll: 500

@@ -4,6 +4,9 @@ import Star from '../components/Star';
 import SideBox from '../components/SideBox';
 import PositionData from '../components/PositionData';
 import GameStart from '../components/GameStart';
+import GameClear from '../components/GameClear';
+
+const clearScore = 1;
 
 interface State {
     screen: {
@@ -14,6 +17,7 @@ interface State {
     score: number;
     is_start: boolean;
     is_clear: boolean;
+    starArray: any[];
 }
 
 const initState = {
@@ -24,10 +28,9 @@ const initState = {
     keys: false,
     score: 0,
     is_start: false,
-    is_clear: false
+    is_clear: false,
+    starArray: [...new Array(clearScore)]
 };
-
-const clearScore = 30;
 
 export default class Game extends React.Component<{}, State> {
     constructor() {
@@ -37,8 +40,9 @@ export default class Game extends React.Component<{}, State> {
 
     addScore = () => {
         const { score } = this.state;
-        this.setState({ score: score + 1 });
-        if (score >= clearScore) {
+        const newScore = score + 1;
+        this.setState({ score: newScore });
+        if (newScore >= clearScore) {
             this.setState({ is_clear: true });
         }
     };
@@ -47,8 +51,18 @@ export default class Game extends React.Component<{}, State> {
         this.setState({ is_start: true });
     };
 
+    gameReStart = () => {
+        this.setState({
+            is_start: true,
+            is_clear: false,
+            score: 0,
+            starArray: [...new Array(clearScore)]
+        });
+    };
+
     render() {
-        const { score, is_clear, is_start } = this.state;
+        const { score, is_clear, is_start, starArray } = this.state;
+        console.log(starArray);
         const positionData: PositionData = {
             innerWidth: window.innerWidth,
             innerHeight: window.innerHeight,
@@ -74,7 +88,7 @@ export default class Game extends React.Component<{}, State> {
                             height={window.innerHeight}
                             color={'black'}
                         />
-                        {[...Array(clearScore)].map((_, i) => (
+                        {starArray.map((_, i) => (
                             <Star
                                 key={i}
                                 positionData={positionData}
@@ -85,6 +99,9 @@ export default class Game extends React.Component<{}, State> {
                     </Layer>
                 </Stage>
                 {!is_start && <GameStart startFunc={this.gameStart} />}
+                {is_clear && (
+                    <GameClear clearFunc={this.gameReStart} score={score} />
+                )}
             </>
         );
     }
