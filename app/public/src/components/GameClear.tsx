@@ -37,18 +37,18 @@ const StartButton = styled.div`
 
 const ClearText = styled.div`
     position: fixed;
-    width: 180px;
+    width: 480px;
     top: 30%;
-    left: calc(50% - 180px / 2);
+    left: calc(50% - 480px / 2);
     color: #364e96;
     font-size: 60px;
 `;
 
 const ScoreText = styled.div`
     position: fixed;
-    width: 110px;
+    width: 350px;
     top: 40%;
-    left: calc(50% - 110px / 2);
+    left: calc(50% - 350px / 2);
     font-size: 30px;
 `;
 
@@ -60,8 +60,10 @@ const GameClear: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <>
             <Overlay />
-            <ClearText>クリア</ClearText>
-            <ScoreText>score:{score}s(average:{average.toFixed(1)}s)</ScoreText>
+            <ClearText>Congratulations!</ClearText>
+            <ScoreText>
+                score:{score}s(average:{average.toFixed(1)}s)
+            </ScoreText>
             <StartButton onClick={clearFunc}>タイトルに戻る</StartButton>
         </>
     );

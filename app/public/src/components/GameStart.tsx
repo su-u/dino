@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-    startFunc: () => void;
+    startFunc: (star: number) => void;
+    defaultStar: number;
 }
 
 const Overlay = styled.div`
@@ -25,7 +26,7 @@ const StartButton = styled.div`
     width: 150px;
     height: 30px;
     cursor: pointer;
-    top: calc(50% - 30px / 2);
+    top: calc(60% - 30px / 2);
     left: calc(50% - 150px / 2);
     font-weight: bold;
     font-size: 27px;
@@ -48,12 +49,52 @@ const TitleText = styled.div`
     padding: 20px;
 `;
 
-const GameStart: React.FunctionComponent<Props> = ({ startFunc }: any) => {
+const Form = styled.form`
+    position: fixed;
+`;
+
+const Input = styled.input.attrs({
+    type: 'number'
+})`
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    color: #000000;
+    font-size: 0.8rem;
+    width: 50%;
+    position: fixed;
+    padding: 20px;
+    width: 150px;
+    height: 10px;
+    cursor: pointer;
+    top: calc(50% - 10px / 2);
+    left: calc(50% - 150px / 2);
+`;
+
+const GameStart: React.FunctionComponent<Props> = ({
+    startFunc,
+    defaultStar
+}: any) => {
+    const [star, setStar] = React.useState(defaultStar);
+
+    const onChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.value !== '')
+            setStar(parseInt(event.target.value, 10));
+    };
+
     return (
         <>
             <Overlay />
             <TitleText>星をわけろ！</TitleText>
-            <StartButton onClick={startFunc}>スタート</StartButton>
+            <Form>
+                <Input
+                    value={star}
+                    onChange={onChangeValue}
+                    min="1"
+                    max="25565"
+                ></Input>
+                <StartButton onClick={() => startFunc(star)}>スタート</StartButton>
+            </Form>
         </>
     );
 };

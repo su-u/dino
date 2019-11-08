@@ -7,24 +7,21 @@ import GameStart from '../components/GameStart';
 import GameClear from '../components/GameClear';
 import { useStopwatch } from '../utilities';
 
-const clearScore = 30;
+const defaultStar = 30;
 
 const Game: React.FunctionComponent = () => {
-
     const [score, setScore] = React.useState(0);
     const [isStart, setStart] = React.useState(false);
     const [isClear, setClear] = React.useState(false);
-    const [starArray] = React.useState([...Array(clearScore)]);
-    const {
-        elapsedTime,
-        startTimer,
-        stopTimer,
-    } = useStopwatch();
+    const [starArray, setStarArray] = React.useState([...Array(defaultStar)]);
+    const [clearStar, setClearStar] = React.useState(defaultStar);
+
+    const { elapsedTime, startTimer, stopTimer } = useStopwatch();
 
     const addScore = () => {
         const newScore = score + 1;
         setScore(newScore);
-        if (newScore >= clearScore) {
+        if (newScore >= clearStar) {
             setClear(true);
             stopTimer();
         }
@@ -39,9 +36,12 @@ const Game: React.FunctionComponent = () => {
         rifhtBox: window.innerWidth * 0.8
     };
 
-    const gameStart = () => {
+    const gameStart = (star: number) => {
+        setClearStar(star);
+        setStarArray([...Array(star)]);
         setStart(true);
         startTimer();
+        console.log('start' + star);
     };
 
     const gameReStart = () => {
@@ -73,12 +73,21 @@ const Game: React.FunctionComponent = () => {
                     <Text text={`${elapsedTime}s`} fontSize={30} />
                 </Layer>
             </Stage>
-            {!isStart && <GameStart startFunc={gameStart} />}
+            {!isStart && (
+                <GameStart
+                    startFunc={(star: number) => gameStart(star)}
+                    defaultStar={defaultStar}
+                />
+            )}
             {isClear && (
-                <GameClear clearFunc={gameReStart} score={parseFloat(elapsedTime)} starNumber={clearScore}/>
+                <GameClear
+                    clearFunc={gameReStart}
+                    score={parseFloat(elapsedTime)}
+                    starNumber={clearStar}
+                />
             )}
         </>
     );
-}
+};
 
 export default Game;
