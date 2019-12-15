@@ -9,4 +9,3 @@ services:
       - ./app/public/dist:/var/www/html:z
     ports:
       - "3000"
-    restart: always

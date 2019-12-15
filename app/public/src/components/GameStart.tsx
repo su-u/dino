@@ -78,8 +78,11 @@ const GameStart: React.FunctionComponent<Props> = ({
     const [star, setStar] = React.useState(defaultStar);
 
     const onChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.value !== '')
-            setStar(parseInt(event.target.value, 10));
+        if (event.target.value !== '') {
+            const value = parseInt(event.target.value, 10);
+            const star = value >= 100 ? 100 : value;
+            setStar(star);
+        }
     };
 
     const disableSubmit = (event: React.FormEvent<HTMLFormElement>) => {
