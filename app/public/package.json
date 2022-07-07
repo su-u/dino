@@ -7,7 +7,7 @@
     "firebase": "6.2.0",
     "immutable": "^3.8.2",
     "konva": "^4.0.14",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "react": "16.8.6",
     "react-dom": "^16.3.0",
     "react-konva": "^16.10.1-0",
